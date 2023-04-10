@@ -123,19 +123,22 @@ def koorstrtoint(matriks):
     for i in range(len(matriks)):
         for j in range(len(matriks[0])):
             matriks[i][j] = int(matriks[i][j])
-# def jarak(graph,list):
-#     hasil = 0
-#     for i in range(len(list)-1):
-#         hasil+=graph[list[i]][list[i+1]]
-#     return hasil
+def jarak(graph,list):
+    hasil = 0
+    for i in range(len(list)-1):
+        for j in range(len(graph[i])):
+            if(graph[i][j][0]==list[i+1]):
+                hasil+=graph[i][j][1]
+
+    return hasil
 namafile = input("Masukan nama file:")
 n,m,k = read_file(namafile)
 jrk = jarakheuristik(k,0)
 matstringtoint(m)
 mtog = matrixToGraph(m)
-hasilastar = Astar(mtog,0,1,jrk)
-print
-# print(jarak(mtog,hasilastar))
+hasilastar = Astar(mtog,0,2,jrk)
+print(mtog)
+print(jarak(mtog,hasilastar))
 printRute(hasilastar,n)
 
 
