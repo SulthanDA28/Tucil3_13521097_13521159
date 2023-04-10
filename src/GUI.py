@@ -6,7 +6,7 @@ from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg,
     NavigationToolbar2Tk
 )
-import graph
+#import Astar
 
 window = tk.Tk()
 window.title("Find Route")
@@ -42,19 +42,19 @@ def cari():
         cekinput.config(text='Belum ada file')
     else:
         cekinput.config(text='Mantap')
-        nama,matriks,koor = graph.read_file(filedirect)
-        print(nama)
-        graph.matstringtoint(matriks)
-        print(matriks)
-        graph.koorstrtoint(koor)
-        print(koor)
-        global namamatrks
-        namamatrks = nama
+        # nama,matriks,koor = graph.read_file(filedirect)
+        # print(nama)
+        # graph.matstringtoint(matriks)
+        # print(matriks)
+        # graph.koorstrtoint(koor)
+        # print(koor)
+        # global namamatrks
+        # namamatrks = nama
 
-value1 = tk.StringVar(window)
-value1.set("Awal")
-menu1 = tk.OptionMenu(window,)
-menu1.grid(column=0,row=9)
+# value1 = tk.StringVar(window)
+# value1.set("Awal")
+# menu1 = tk.OptionMenu(window)
+# menu1.grid(column=0,row=9)
 
 # value2 = tk.StringVar(window)
 # value2.set("Akhir")
