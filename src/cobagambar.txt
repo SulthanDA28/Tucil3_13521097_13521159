@@ -1,9 +1,11 @@
-Jakarta Bandung Surabaya Semarang
-0 1 0 10
-1 0 0 0
-0 0 0 4
-10 0 4 0
+Jakarta Bandung Surabaya Semarang Lamongan
+0 1 0 10 0
+1 0 10 0 50
+0 10 0 4 0
+10 0 4 0 1
+0 50 0 1 0
 123 24
 25 33
 12 45
 25 67
+98 26
