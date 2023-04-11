@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
+import os
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg,
     NavigationToolbar2Tk
@@ -23,7 +24,7 @@ labelinput = tk.Label(window,text="Input File")
 labelinput.grid(column=0,row=3)
 butcari = tk.Button(window,text="Select",command=lambda:cari())
 butcari.grid(column=0,row=4)
-cekinput = tk.Label(window,text="Dipilih dipilih")
+cekinput = tk.Label(window,text="Silakan pilih file")
 cekinput.grid(column=0,row=5)
 
 pilihmetod = tk.Label(window,text="Pilih Algoritma")
@@ -32,7 +33,7 @@ pilihmetod.grid(column=0,row=10)
 pilihtitik = tk.Label(window,text="Pilih titik")
 pilihtitik.grid(column=0,row=6)
 
-ucs = tk.Button(window,text="UCS")
+ucs = tk.Button(window,text="UCS",command=lambda:callUCS())
 ucs.grid(column=0,row=11)
 astar = tk.Button(window,text="A*")
 astar.grid(column=0,row=12)
@@ -47,11 +48,14 @@ def cari():
     global filedirect
     ftypes = [('Text','*.txt')]
     filedirect = filedialog.askopenfilename(filetypes=ftypes)
+    head, tail = os.path.split(filedirect)
     if(filedirect==''):
         cekinput.config(text='Belum ada file')
     else:
-        cekinput.config(text='Mantap')
+        cekinput.config(text=tail)
         nama,matriks,koor = Astar.read_file(filedirect)
+        global graphUCS
+        graphUCS = UCS.read_graph(filedirect) 
         if(Astar.cekMatrix(matriks)):
             graf = Astar.visualgrafkoor(nama,matriks,koor)
             global matrksglob
@@ -77,7 +81,16 @@ def cari():
             HasilResult.config(text="Input masih ada yang salah")
 
 
-    
+def callUCS():
+    print(simpulawal) # belum bisa akses simpul
+    print(simpulakhir)
+    # path, cost = UCS.ucs(graphUCS, simpulawal, simpulakhir)
+    # if path == "No path found":
+    #     print("Tidak ditemukan jalur antara", simpulawal, "dan", simpulakhir)
+    # else:
+    #     jalur = "->".join(path)
+    #     print("Jalur terpendek:", jalur)
+    #     print("Biaya jalur terpendek:", cost)
 
 
 
@@ -85,11 +98,14 @@ click = tk.StringVar()
 click.set("Pilih Titik Awal")
 opsiawal = tk.OptionMenu(window,click,*namamatrks)
 opsiawal.grid(column=0,row=7)
+simpulawal = click.get()
 
 click2 = tk.StringVar()
 click2.set("Pilih Titik Akhir")
 opsiakhir = tk.OptionMenu(window,click2,*namamatrks)
 opsiakhir.grid(column=0,row=8)
+simpulakhir = click2.get()
+
 
 Result = tk.Label(window,text="Result:")
 Result.grid(column=0,row=13)
