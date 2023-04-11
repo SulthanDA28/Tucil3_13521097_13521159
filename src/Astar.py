@@ -162,21 +162,6 @@ def draw_graph_koor_color(graph,hasil,nama):
         listedge.append(edge)
     nx.draw_networkx_edges(graph,pos,edgelist = listedge,edge_color="tab:blue")
 
-# namafile = input("Masukan nama file:")
-# n,m,k = read_file(namafile)
-# print(m)
-# # graph = visualgrafkoor(n,m,k)
-# # #draw_graph_koor(graph)
-# mtog = matrixToGraph(m)
-# # hasilastar = Astar(mtog,0,3,k)
-# # draw_graph_koor_color(graph,hasilastar,n)
-# # print(mtog)
-# # print(jarak(mtog,hasilastar))
-# # nyoba = printRute(hasilastar,n)
-# # print(nyoba)
-# print(mtog)
-# jrk = jarak(mtog,[0,3,4,3])
-# print(jrk)
 
 
 

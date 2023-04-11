@@ -85,12 +85,8 @@ def AstarAlgo():
             graph = Astar.matrixToGraph(matrksglob)
             hasil = Astar.Astar(graph,Astar.getIDXName(namamatrks,click.get()),Astar.getIDXName(namamatrks,click2.get()),koorglob)
             if(hasil!=None):
-                print(graph)
-                print(hasil)
-                
                 rute = Astar.printRute(hasil,namamatrks)
                 jrk = Astar.jarak(graph,hasil)
-                print(jrk)
                 HasilResult.config(text=rute)
                 hasiljarak.config(text=jrk)
                 graphvis = Astar.visualgrafkoor(namamatrks,matrksglob,koorglob)
