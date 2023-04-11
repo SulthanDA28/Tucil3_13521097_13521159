@@ -46,7 +46,8 @@ def getIDXName(list,nama):
     return -1
 def neighbour(node,graph):
     return graph[node]
-def Astar(graph, awal, akhir, jrkheur):
+def Astar(graph, awal, akhir, listkoor):
+    jrkheur = jarakheuristik(listkoor,akhir)
     blm_semua = set([awal])
     udah_kunjungi = set([])
     parent = {}
@@ -88,12 +89,13 @@ def Astar(graph, awal, akhir, jrkheur):
     return None
 def printRute(list,nama):
     if(list!=None):
-        print("Rute : ",end="")
+        ngeprin = "Rute : "
         for i in range(len(list)):
             if(i==len(list)-1):
-                print(nama[list[i]],end="")
+                ngeprin+=nama[list[i]]
             else:
-                print(nama[list[i]]+"->",end="")
+                ngeprin += nama[list[i]]+"->"
+    return ngeprin
 
 def read_file(filename):
     with open(filename) as f:
@@ -107,6 +109,8 @@ def read_file(filename):
         for j in range(banyak):
             koor = f.readline().strip().split()
             koordinat.append(koor)
+        matstringtoint(matriks)
+        koorstrtoint(koordinat)
         return nama,matriks,koordinat
 
 def ecluidian(x1,x2,y1,y2):
@@ -147,23 +151,29 @@ def draw_graph_koor(graph):
     nx.draw(graph,pos,with_labels=True, font_weight='bold')
     labels = nx.get_edge_attributes(graph, 'weight')
     nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
-    plt.show()
+def draw_graph_koor_color(graph,hasil,nama):
+    pos=nx.get_node_attributes(graph,'pos')
+    nx.draw(graph,pos,with_labels=True, font_weight='bold')
+    labels = nx.get_edge_attributes(graph, 'weight')
+    nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
+    listedge = []
+    for i in range(len(hasil)-1):
+        edge = (nama[hasil[i]],nama[hasil[i+1]])
+        listedge.append(edge)
+    nx.draw_networkx_edges(graph,pos,edgelist = listedge,edge_color="tab:blue")
 
-
-namafile = input("Masukan nama file:")
-n,m,k = read_file(namafile)
-jrk = jarakheuristik(k,4)
-matstringtoint(m)
-koorstrtoint(k)
-print(m)
-print(jrk)
-graph = visualgrafkoor(n,m,k)
-draw_graph_koor(graph)
-mtog = matrixToGraph(m)
-hasilastar = Astar(mtog,0,4,jrk)
-print(mtog)
-print(jarak(mtog,hasilastar))
-printRute(hasilastar,n)
+# namafile = input("Masukan nama file:")
+# n,m,k = read_file(namafile)
+# print(m)
+# graph = visualgrafkoor(n,m,k)
+# #draw_graph_koor(graph)
+# mtog = matrixToGraph(m)
+# hasilastar = Astar(mtog,0,3,k)
+# draw_graph_koor_color(graph,hasilastar,n)
+# print(mtog)
+# print(jarak(mtog,hasilastar))
+# nyoba = printRute(hasilastar,n)
+# print(nyoba)
 
 
 
