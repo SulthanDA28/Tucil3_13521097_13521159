@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
+import os
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg,
     NavigationToolbar2Tk
@@ -23,7 +24,7 @@ labelinput = tk.Label(window,text="Input File")
 labelinput.grid(column=0,row=2)
 butcari = tk.Button(window,text="Select",command=lambda:cari())
 butcari.grid(column=0,row=3)
-cekinput = tk.Label(window,text="Dipilih dipilih")
+cekinput = tk.Label(window,text="Belum ada file terpilih")
 cekinput.grid(column=0,row=4)
 
 pilihmetod = tk.Label(window,text="Pilih Algoritma")
@@ -46,10 +47,11 @@ def cari():
     global filedirect
     ftypes = [('Text','*.txt')]
     filedirect = filedialog.askopenfilename(filetypes=ftypes)
+    head, tail = os.path.split(filedirect)
     if(filedirect==''):
         cekinput.config(text='Belum ada file')
     else:
-        cekinput.config(text='Mantap')
+        cekinput.config(text=tail)
         nama,matriks,koor = Astar.read_file(filedirect)
         if(Astar.cekMatrix(matriks)):
             graf = Astar.visualgrafkoor(nama,matriks,koor)
