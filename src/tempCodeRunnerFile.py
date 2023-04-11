@@ -1,0 +1,1 @@
+hasiljarak.config(text=jrk)

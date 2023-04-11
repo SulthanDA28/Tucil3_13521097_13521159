@@ -132,7 +132,7 @@ def koorstrtoint(matriks):
 def jarak(graph,list):
     hasil = 0
     for i in range(len(list)-1):
-        for j in range(len(graph[i])):
+        for j in range(len(graph[list[i]])):
             if(graph[list[i]][j][0]==list[i+1]):
                 hasil+=graph[list[i]][j][1]
     return hasil
@@ -165,15 +165,18 @@ def draw_graph_koor_color(graph,hasil,nama):
 # namafile = input("Masukan nama file:")
 # n,m,k = read_file(namafile)
 # print(m)
-# graph = visualgrafkoor(n,m,k)
-# #draw_graph_koor(graph)
+# # graph = visualgrafkoor(n,m,k)
+# # #draw_graph_koor(graph)
 # mtog = matrixToGraph(m)
-# hasilastar = Astar(mtog,0,3,k)
-# draw_graph_koor_color(graph,hasilastar,n)
+# # hasilastar = Astar(mtog,0,3,k)
+# # draw_graph_koor_color(graph,hasilastar,n)
+# # print(mtog)
+# # print(jarak(mtog,hasilastar))
+# # nyoba = printRute(hasilastar,n)
+# # print(nyoba)
 # print(mtog)
-# print(jarak(mtog,hasilastar))
-# nyoba = printRute(hasilastar,n)
-# print(nyoba)
+# jrk = jarak(mtog,[0,3,4,3])
+# print(jrk)
 
 
 
