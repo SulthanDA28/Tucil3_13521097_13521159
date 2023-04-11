@@ -24,7 +24,7 @@ def read_graph(filename):
         # membaca matriks ketetanggaan
         adjacency_matrix = []
         for line in f:
-            adjacency_matrix.append(list(map(int, line.strip().split())))
+            adjacency_matrix.append(list(map(float, line.strip().split())))
         # mmebuat graf
         graph = {}
         for i in range(len(nodes)):

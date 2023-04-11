@@ -108,7 +108,12 @@ def AstarAlgo():
 def UCSalgo():
     if(filedirect!=''):
         graph = UCS.read_graph(filedirect)
-        hasil,jarak = UCS.ucs(graph,click.get(),click2.get())
+        a = click.get()
+        b = click2.get()
+        if(len(UCS.ucs(graph,a,b)) > 2):
+            hasil = "No path found"
+        else:
+            hasil, jarak = UCS.ucs(graph,a,b)
         if(hasil=="No path found"):
             HasilResult.config(text="Tidak menemukan rute")
             hasiljarak.config(text="")

@@ -30,10 +30,10 @@ def printMatrix(matrix):
 def cekMatrix(matrix):
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
-            if matrix[i][j] != matrix[j][i]:
-                return False
-            if(matrix[i][j] < 0):
-                return False
+            # if matrix[i][j] != matrix[j][i]:
+            #     return False
+            # if(matrix[i][j] < 0):
+            #     return False
             if i==j and matrix[i][j] != 0:
                 return False
     return True
@@ -124,11 +124,11 @@ def jarakheuristik(listkoor,tujuan):
 def matstringtoint(matriks):
     for i in range(len(matriks)):
         for j in range(len(matriks[0])):
-            matriks[i][j] = int(matriks[i][j])
+            matriks[i][j] = float(matriks[i][j])
 def koorstrtoint(matriks):
     for i in range(len(matriks)):
         for j in range(len(matriks[0])):
-            matriks[i][j] = int(matriks[i][j])
+            matriks[i][j] = float(matriks[i][j])
 def jarak(graph,list):
     hasil = 0
     for i in range(len(list)-1):
