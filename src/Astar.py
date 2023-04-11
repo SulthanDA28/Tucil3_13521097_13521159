@@ -1,3 +1,5 @@
+import networkx as nx
+import matplotlib.pyplot as plt
 def addTitik(graph, titik):
     if titik not in graph:
         graph[titik] = []
@@ -44,7 +46,8 @@ def getIDXName(list,nama):
     return -1
 def neighbour(node,graph):
     return graph[node]
-def Astar(graph, awal, akhir, jrkheur):
+def Astar(graph, awal, akhir, listkoor):
+    jrkheur = jarakheuristik(listkoor,akhir)
     blm_semua = set([awal])
     udah_kunjungi = set([])
     parent = {}
@@ -86,12 +89,13 @@ def Astar(graph, awal, akhir, jrkheur):
     return None
 def printRute(list,nama):
     if(list!=None):
-        print("Rute : ",end="")
+        ngeprin = "Rute : "
         for i in range(len(list)):
             if(i==len(list)-1):
-                print(nama[list[i]],end="")
+                ngeprin+=nama[list[i]]
             else:
-                print(nama[list[i]]+"->",end="")
+                ngeprin += nama[list[i]]+"->"
+    return ngeprin
 
 def read_file(filename):
     with open(filename) as f:
@@ -105,6 +109,8 @@ def read_file(filename):
         for j in range(banyak):
             koor = f.readline().strip().split()
             koordinat.append(koor)
+        matstringtoint(matriks)
+        koorstrtoint(koordinat)
         return nama,matriks,koordinat
 
 def ecluidian(x1,x2,y1,y2):
@@ -127,19 +133,47 @@ def jarak(graph,list):
     hasil = 0
     for i in range(len(list)-1):
         for j in range(len(graph[i])):
-            if(graph[i][j][0]==list[i+1]):
-                hasil+=graph[i][j][1]
-
+            if(graph[list[i]][j][0]==list[i+1]):
+                hasil+=graph[list[i]][j][1]
     return hasil
-namafile = input("Masukan nama file:")
-n,m,k = read_file(namafile)
-jrk = jarakheuristik(k,0)
-matstringtoint(m)
-mtog = matrixToGraph(m)
-hasilastar = Astar(mtog,0,2,jrk)
-print(mtog)
-print(jarak(mtog,hasilastar))
-printRute(hasilastar,n)
+
+def visualgrafkoor(nama,matriks,koor):
+    graph = nx.Graph()
+    for i in range(len(nama)):
+        graph.add_node(nama[i],pos=(koor[i][0],koor[i][1]))
+    for j in range(len(nama)):
+        for k in range(len(nama)):
+            if(matriks[j][k]!=0):
+                graph.add_edge(nama[j],nama[k],weight = int(matriks[j][k]) )
+    return graph
+def draw_graph_koor(graph):
+    pos=nx.get_node_attributes(graph,'pos')
+    nx.draw(graph,pos,with_labels=True, font_weight='bold')
+    labels = nx.get_edge_attributes(graph, 'weight')
+    nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
+def draw_graph_koor_color(graph,hasil,nama):
+    pos=nx.get_node_attributes(graph,'pos')
+    nx.draw(graph,pos,with_labels=True, font_weight='bold')
+    labels = nx.get_edge_attributes(graph, 'weight')
+    nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
+    listedge = []
+    for i in range(len(hasil)-1):
+        edge = (nama[hasil[i]],nama[hasil[i+1]])
+        listedge.append(edge)
+    nx.draw_networkx_edges(graph,pos,edgelist = listedge,edge_color="tab:blue")
+
+# namafile = input("Masukan nama file:")
+# n,m,k = read_file(namafile)
+# print(m)
+# graph = visualgrafkoor(n,m,k)
+# #draw_graph_koor(graph)
+# mtog = matrixToGraph(m)
+# hasilastar = Astar(mtog,0,3,k)
+# draw_graph_koor_color(graph,hasilastar,n)
+# print(mtog)
+# print(jarak(mtog,hasilastar))
+# nyoba = printRute(hasilastar,n)
+# print(nyoba)
 
 
 
@@ -159,51 +193,3 @@ printRute(hasilastar,n)
 
 
 
-# graph = {
-#     0 : [(1, 1), (2, 3), (3, 7)],
-#     1 : [(3, 5)],
-#     2 : [(3, 12)]
-# }
-# # heur = [1,1,1,1]
-# # rute = Astar(graph,0,2,heur)
-# # nama = ["A","B","C","D"]
-# # print(rute)
-# # printRute(rute,nama)
-
-# namakota = ["Jakarta", "Bandung", "Surabaya", "Semarang"]
-
-# matriks = [[0, 1, 0, 10],
-#            [1, 0, 0, 0],
-#             [0, 0, 0, 0],
-#             [10, 0, 0, 0]]
-# graph = matrixToGraph(matriks)
-# heur = [3,5,2,6]
-# hasil = Astar(graph,0,2,heur)
-# #print(hasil)
-# def seleksi(matriks,list):
-#     ubah = []
-    
-#     for i in range(len(matriks)):
-#         tiapbaris = []
-#         for j in range(len(matriks[0])):
-#             if i not in list or j not in list:
-#                 continue
-#             else:
-#                 tiapbaris.append(matriks[i][j])
-#         ubah.append(tiapbaris)
-#     for sel in range(len(ubah)):
-#         if(len(ubah[sel])==0):
-#             simpan = sel
-#     ubah.pop(simpan)
-#     return ubah
-# hasilsel = seleksi(matriks,hasil)
-# printRute(hasil,namakota)
-# print(hasilsel)
-# # tangga,berat = graph[1][0]
-# # print(tangga)
-# # print(berat)
-# # print(cekMatrix(matriks))
-# # if(cekMatrix(matriks)):
-# #     graph = matrixToGraph(matriks)
-# #     printGraph(graph,namakota)
-# #     print(graph)
