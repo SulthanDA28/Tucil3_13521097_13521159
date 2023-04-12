@@ -82,17 +82,29 @@ def cari():
 def AstarAlgo():
     if(filedirect!=''):
         if(namamatrks[0]!="kosong" and matrksglob!=[] and koorglob!=[]):
-            graph = Astar.matrixToGraph(matrksglob)
-            hasil = Astar.Astar(graph,Astar.getIDXName(namamatrks,click.get()),Astar.getIDXName(namamatrks,click2.get()),koorglob)
+            graph = UCS.read_graph(filedirect)
+            if(len(Astar.Astar(graph,click.get(),click2.get(),koorglob,namamatrks))<2):
+                hasil = []
+            else:
+                hasil,jrk = Astar.Astar(graph,click.get(),click2.get(),koorglob,namamatrks)
             if(hasil!=[]):
-                rute = Astar.printRute(hasil,namamatrks)
-                jrk = Astar.jarak(graph,hasil)
+                ha = []
+                for i in range(len(hasil)):
+                    ha.append(Astar.getIDXName(namamatrks,hasil[i]))
+                mtograf = Astar.matrixToGraph(matrksglob)
+                rute = "Rute : "
+                for j in range(len(hasil)):
+                    if(j==len(hasil)-1):
+                        rute+=hasil[j]
+                    else:
+                        rute+=hasil[j]+"->"
+                realjarak = Astar.jarak(mtograf,ha)
                 HasilResult.config(text=rute)
-                hasiljarak.config(text=jrk)
+                hasiljarak.config(text=realjarak)
                 graphvis = Astar.visualgrafkoor(namamatrks,matrksglob,koorglob)
                 f = plt.figure(figsize=(6.5, 4.45), dpi=100)
                 ax = f.add_subplot(111)
-                Astar.draw_graph_koor_color(graphvis,hasil,namamatrks)
+                Astar.draw_graph_koor_color(graphvis,ha,namamatrks)
                 canvas = FigureCanvasTkAgg(f, master=window)
                 canvas.draw()
                 canvas.get_tk_widget().grid(row=1, column=2,rowspan=10)

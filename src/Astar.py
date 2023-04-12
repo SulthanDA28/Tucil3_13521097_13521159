@@ -1,5 +1,7 @@
 import networkx as nx
+import heapq
 import matplotlib.pyplot as plt
+import math
 def addTitik(graph, titik):
     if titik not in graph:
         graph[titik] = []
@@ -15,18 +17,7 @@ def matrixToGraph(matrix):
             if matrix[i][j] != 0:
                 addEdge(graph, i, j, matrix[i][j])
     return graph
-
-def printGraph(graph, namakota):
-    for titik in graph:
-        for j in range(len(graph[titik])):
-            print(namakota[titik], "-", namakota[graph[titik][j][0]], "berat:", graph[titik][j][1])
         
-
-def printMatrix(matrix):
-    for i in range(len(matrix)):
-        for j in range(len(matrix[i])):
-            print(matrix[i][j], end=" ")
-        print()
 def cekMatrix(matrix):
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
@@ -44,56 +35,32 @@ def getIDXName(list,nama):
             return i
             break
     return -1
-def neighbour(node,graph):
-    return graph[node]
-def Astar(graph, awal, akhir, listkoor):
-    jrkheur = jarakheuristik(listkoor,akhir)
-    blm_semua = set([awal])
-    udah_kunjungi = set([])
-    parent = {}
-    parent[awal] = awal
-    simpan_length = {}
-    simpan_length[awal] = 0
-
-    while(len(blm_semua)>0):
-        test = None
-        for i in blm_semua:
-            if(test==None or simpan_length[i] + jrkheur[i] < simpan_length[test] + jrkheur[test]):
-                test = i
-        if(test==None):
-            return []
-        if(test==akhir):
-            rute = []
-            while(parent[test]!=test):
-                rute.append(test)
-                test = parent[test]
-            rute.append(awal)
-            rute.reverse()
-            return rute
-        for (tetangga,berat) in neighbour(test,graph):
-            if(tetangga not in blm_semua and tetangga not in udah_kunjungi):
-                blm_semua.add(tetangga)
-                parent[tetangga] = test
-                simpan_length[tetangga] = simpan_length[test] + berat
-            else:
-                if(simpan_length[tetangga]>simpan_length[test]+berat):
-                    simpan_length[tetangga] = simpan_length[test] + berat
-                    parent[tetangga] = test
-                    if(tetangga in udah_kunjungi):
-                        udah_kunjungi.remove(tetangga)
-                        blm_semua.add(tetangga)
-        blm_semua.remove(test)
-        udah_kunjungi.add(test)
+def Astar(graph, start, goal,listkoor,nama):
+    jrkheur = jarakheuristik(listkoor,getIDXName(nama,goal))
+    explored = set()
+    queue = [(0, start, [])]
+    while queue:
+        (cost, node, path) = heapq.heappop(queue)
+        if node not in explored:
+            explored.add(node)
+            path = path + [node]
+            if node == goal:
+                return path, cost
+            if(node!=goal):
+                cost -= jrkheur[getIDXName(nama,node)]
+            for neighbor in graph[node]:
+                n_cost = graph[node][neighbor]
+                # menggunakan prio queue sebagai dasar
+                heapq.heappush(queue, (cost + n_cost + jrkheur[getIDXName(nama,neighbor)], neighbor, path))
     return []
-def printRute(list,nama):
-    if(list!=[]):
-        ngeprin = "Rute : "
-        for i in range(len(list)):
-            if(i==len(list)-1):
-                ngeprin+=nama[list[i]]
-            else:
-                ngeprin += nama[list[i]]+"->"
-    return ngeprin
+def jarak(graph,list):
+    hasil = 0
+    for i in range(len(list)-1):
+        for j in range(len(graph[list[i]])):
+            if(graph[list[i]][j][0]==list[i+1]):
+                hasil+=graph[list[i]][j][1]
+    return hasil
+
 
 def read_file(filename):
     with open(filename) as f:
@@ -111,8 +78,13 @@ def read_file(filename):
         koorstrtoint(koordinat)
         return nama,matriks,koordinat
 
-def ecluidian(x1,x2,y1,y2):
-    return (((x1-x2)**2)+((y1-y2)**2))**(1/2)
+def ecluidian(x1,x2,y1,y2):#sebenarnya haversine:v
+    jari = 6317000
+    st = (math.sin((x2-x1)/2))**2
+    dua = math.cos(x1)*math.cos(x2)*((math.sin(y2-y1)/2)**2)
+    hasil = (st+dua)**(1/2)
+    hasilakhir = 2*jari*math.asin(hasil)
+    return hasilakhir
 def jarakheuristik(listkoor,tujuan):
     listjawaban = []
     for i in range(len(listkoor)):
@@ -127,13 +99,6 @@ def koorstrtoint(matriks):
     for i in range(len(matriks)):
         for j in range(len(matriks[0])):
             matriks[i][j] = float(matriks[i][j])
-def jarak(graph,list):
-    hasil = 0
-    for i in range(len(list)-1):
-        for j in range(len(graph[list[i]])):
-            if(graph[list[i]][j][0]==list[i+1]):
-                hasil+=graph[list[i]][j][1]
-    return hasil
 
 def visualgrafkoor(nama,matriks,koor):
     graph = nx.Graph()
