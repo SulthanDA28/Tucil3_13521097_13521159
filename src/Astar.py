@@ -50,7 +50,7 @@ def Astar(graph, start, goal,listkoor,nama):
                 cost -= jrkheur[getIDXName(nama,node)]
             for neighbor in graph[node]:
                 n_cost = graph[node][neighbor]
-                # menggunakan prio queue sebagai dasar
+                # menggunakan prio queue sebagai dasar, f(n) = g(n) + h(n)
                 heapq.heappush(queue, (cost + n_cost + jrkheur[getIDXName(nama,neighbor)], neighbor, path))
     return []
 def jarak(graph,list):
@@ -103,7 +103,7 @@ def koorstrtoint(matriks):
 def visualgrafkoor(nama,matriks,koor):
     graph = nx.Graph()
     for i in range(len(nama)):
-        graph.add_node(nama[i],pos=(koor[i][0],koor[i][1]))
+        graph.add_node(nama[i],pos=(koor[i][1],koor[i][0]))
     for j in range(len(nama)):
         for k in range(len(nama)):
             if(matriks[j][k]!=0):
