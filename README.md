@@ -26,6 +26,7 @@ Adapun spesifikasi yang diperlukan untuk menjalankan program ini yaitu:
 1. Pastikan sudah menginstall python
 2. Pastikan sudah menginstall library python, antara lain, networkx,matplotlib, dan tkinter. Apabila belum menginstall, dapat diinstall dengan menuliskan command berikut pada cmd
 <br>
+
 ```
 pip install networkx
 pip install tkinter
@@ -39,6 +40,7 @@ pip install matplotlib
 2. Lalu buka folder src dan buka file GUI.py di dalam Visual Studio Code
 3. Jalankan file GUI.py
 4. Lalu pilih file txt yang nanti dijadikan sebagai peta. Urutan penulisan pada file txt yaitu, pada baris pertama terdiri nama nama titik yang akan dipetakan(misal sebanyak n). Lalu pada baris berikutnya sebanyak n baris berisi matriks berbobot yang isinya jarak antar titik sebanyak nxn. Lalu baris selanjutnya sebanyak n berisi koordinat dari setiap titik. Koordinat berurutan sesuai urutan nama titik. Contoh file input sebagai berikut.
+<img width="215" alt="Screenshot 2023-04-12 181127" src="https://user-images.githubusercontent.com/110533939/231440519-e45181f3-c7fa-4ceb-9e62-d392d6429cbd.png">
 
 5. Selanjutnya, program akan menampilkan peta yang telah diinputkan beserta pilihan titik titik yang tersedia.
 6. Lalu pilih titik awal dan titik tujuan untuk mencari rute dari titik tersebut.
