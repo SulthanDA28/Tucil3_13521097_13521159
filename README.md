@@ -1,11 +1,11 @@
 # Tucil3_13521097_13521159
-## Pencarian Rute Terdekat pada Map dengan Menggunakan ALgoritma A* dan UCS
+## Pencarian Rute Terdekat pada Map dengan Menggunakan Algoritma A* dan UCS
 
 <br>
 
 ## Author
 1. Shidqi Indy Izhari 13521097
-2. Sulthan Dzaky Alfaro
+2. Sulthan Dzaky Alfaro 13521159
 
 <br>
 
