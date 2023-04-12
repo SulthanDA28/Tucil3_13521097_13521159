@@ -26,6 +26,7 @@ Adapun spesifikasi yang diperlukan untuk menjalankan program ini yaitu:
 1. Pastikan sudah menginstall python
 2. Pastikan sudah menginstall library python, antara lain, networkx,matplotlib, dan tkinter. Apabila belum menginstall, dapat diinstall dengan menuliskan command berikut pada cmd
 <br>
+
 ```
 pip install networkx
 pip install tkinter
