@@ -76,6 +76,8 @@ def cari():
             opsiakhir.destroy()
             opsiakhir = tk.OptionMenu(window,click2,*nama)
             opsiakhir.grid(column=0,row=8)
+            HasilResult.config(text="")
+            hasiljarak.config(text="")
         else:
             HasilResult.config(text="Input masih ada yang salah")
 
@@ -92,7 +94,7 @@ def AstarAlgo():
                 for i in range(len(hasil)):
                     ha.append(Astar.getIDXName(namamatrks,hasil[i]))
                 mtograf = Astar.matrixToGraph(matrksglob)
-                rute = "Rute : "
+                rute = "Rute A* : "
                 for j in range(len(hasil)):
                     if(j==len(hasil)-1):
                         rute+=hasil[j]
@@ -128,7 +130,7 @@ def UCSalgo():
         else:
             hasiljarak.config(text=jarak)
             ha = []
-            rute = "Rute : "
+            rute = "Rute UCS : "
             for j in range(len(hasil)):
                 if(j==len(hasil)-1):
                     rute+=hasil[j]
