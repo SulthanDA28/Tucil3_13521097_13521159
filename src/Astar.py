@@ -61,8 +61,7 @@ def Astar(graph, awal, akhir, listkoor):
             if(test==None or simpan_length[i] + jrkheur[i] < simpan_length[test] + jrkheur[test]):
                 test = i
         if(test==None):
-            print("Tidak menemukan rute")
-            return None
+            return []
         if(test==akhir):
             rute = []
             while(parent[test]!=test):
@@ -85,10 +84,9 @@ def Astar(graph, awal, akhir, listkoor):
                         blm_semua.add(tetangga)
         blm_semua.remove(test)
         udah_kunjungi.add(test)
-    print("Tidak menemukan rute")
-    return None
+    return []
 def printRute(list,nama):
-    if(list!=None):
+    if(list!=[]):
         ngeprin = "Rute : "
         for i in range(len(list)):
             if(i==len(list)-1):

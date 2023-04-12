@@ -84,7 +84,7 @@ def AstarAlgo():
         if(namamatrks[0]!="kosong" and matrksglob!=[] and koorglob!=[]):
             graph = Astar.matrixToGraph(matrksglob)
             hasil = Astar.Astar(graph,Astar.getIDXName(namamatrks,click.get()),Astar.getIDXName(namamatrks,click2.get()),koorglob)
-            if(hasil!=None):
+            if(hasil!=[]):
                 rute = Astar.printRute(hasil,namamatrks)
                 jrk = Astar.jarak(graph,hasil)
                 HasilResult.config(text=rute)
